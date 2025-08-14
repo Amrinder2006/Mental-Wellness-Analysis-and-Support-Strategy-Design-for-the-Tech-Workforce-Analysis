@@ -7,3 +7,4 @@ xgboost
 umap-learn
 streamlit
 joblib
+os
