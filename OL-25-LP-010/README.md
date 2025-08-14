@@ -56,7 +56,7 @@ OL-ID
 
 Watch the project in action:  
 
-- **Streamlit App Demo:** [Click Here to View Demo](#)  
+- **Streamlit App Demo:** [[Click Here to View Demo](https://ol-25-lp-010-mentalhealthsurvey.streamlit.app/)](#)  
 
 ---
 
