@@ -89,4 +89,4 @@ The dataset contains the following features from a 2014 survey on mental health 
 
 You can view and interact with the live project dashboard here:
 
-[**Mental Wellness in Tech Dashboard**](<YOUR_STREAMLIT_APP_LINK>)
+[**https://wqo94xf8dhxkrh43mdmv5e.streamlit.app/**](<YOUR_STREAMLIT_APP_LINK>)
