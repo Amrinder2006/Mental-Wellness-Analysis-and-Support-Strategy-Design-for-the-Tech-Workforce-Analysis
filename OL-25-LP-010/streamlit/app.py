@@ -83,7 +83,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns""")
     st.divider()
     st.header("Dataset")
-    df = pd.read_csv("streamlit/survey.csv")
+    url='OL-25-LP-010/streamlit/survey.csv'
+    df = pd.read_csv(url)
     st.dataframe(df)
     st.write(f"Rows={df.shape[0]},Columns={df.shape[1]}")
     st.divider()
