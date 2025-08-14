@@ -84,7 +84,7 @@ import seaborn as sns""")
     st.divider()
     st.header("Dataset")
     url='OL-25-LP-010/streamlit/survey.csv'
-    df = pd.read_csv(url)
+    df = pd.read_csv("survey.csv")
     st.dataframe(df)
     st.write(f"Rows={df.shape[0]},Columns={df.shape[1]}")
     st.divider()
