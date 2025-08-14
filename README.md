@@ -22,7 +22,20 @@ To run this project locally, please follow these steps:
     git clone <YOUR_REPOSITORY_LINK>
     cd <YOUR_REPOSITORY_DIRECTORY>
     ```
-2.  **Install Dependencies**
+
+2.  **Create and Activate a Virtual Environment**
+    * **For Windows:**
+        ```bash
+        python -m venv venv
+        .\venv\Scripts\activate
+        ```
+    * **For macOS/Linux:**
+        ```bash
+        python3 -m venv venv
+        source venv/bin/activate
+        ```
+
+3.  **Install Dependencies**
     A `requirements.txt` file should be in the root directory. Install the necessary libraries using pip:
     ```bash
     pip install -r requirements.txt
