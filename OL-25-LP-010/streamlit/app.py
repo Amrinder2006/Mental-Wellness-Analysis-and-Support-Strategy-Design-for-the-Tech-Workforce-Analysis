@@ -17,7 +17,7 @@ from sklearn.manifold import TSNE
 from sklearn.cluster import KMeans,AgglomerativeClustering
 import umap.umap_ as umap
 import streamlit as st
-import os
+
 
 def Home():
     st.title("Mental Wellness in the Tech Workforce: Analysis and Strategy")
@@ -84,13 +84,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns""")
     st.divider()
     st.header("Dataset")
-    url='OL-25-LP-010/streamlit/survey.csv'
-    current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Join with the CSV file name
-    csv_path = os.path.join(current_dir, "survey.csv")
 
-# Read CSV
+
+
+
     df = pd.read_csv("OL-25-LP-010/streamlit/survey.csv")
     st.dataframe(df)
     st.write(f"Rows={df.shape[0]},Columns={df.shape[1]}")
