@@ -19,8 +19,8 @@ To run this project locally, please follow these steps:
 
 1.  **Clone the Repository**
     ```bash
-    git clone <YOUR_REPOSITORY_LINK>
-    cd <YOUR_REPOSITORY_DIRECTORY>
+    git clone https://github.com/Amrinder2006/Mental-Wellness-Analysis-and-Support-Strategy-Design-for-the-Tech-Workforce-Analysis.git
+    cd Mental-Wellness-Analysis-and-Support-Strategy-Design-for-the-Tech-Workforce-Analysis
     ```
 
 2.  **Create and Activate a Virtual Environment**
