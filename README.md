@@ -40,18 +40,6 @@ To run this project locally, please follow these steps:
     ```bash
     pip install -r requirements.txt
     ```
-    *If you don't have a `requirements.txt` file, you can create one with the following contents:*
-    ```
-    numpy
-    pandas
-    matplotlib
-    seaborn
-    scikit-learn
-    xgboost
-    umap-learn
-    streamlit
-    joblib
-    ```
 
 4.  **Run the Streamlit Application**
     Once the dependencies are installed, you can launch the interactive web application:
