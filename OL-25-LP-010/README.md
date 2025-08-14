@@ -45,7 +45,7 @@ OL-ID
 ---
 
 ## 🔗 Important Links  
-- **EDA Notebook:** [Link to EDA Notebook](#)
+- **EDA Notebook:** [OL-25-LP-010/models/EDA.ipynb](#)
 - **Classification Notebook:** [Link to Classification Notebook](#)
 - **Regression Notebook:** [Link to Regression Notebook](#)
 - **Clustering Notebook:** [Link to Clustering Notebook](#)
