@@ -47,8 +47,8 @@ OL-ID
 ## 🔗 Important Links  
 - **EDA Notebook:** [[OL-25-LP-010/models/EDA.ipynb](https://github.com/Amrinder2006/Mental-Wellness-Analysis-and-Support-Strategy-Design-for-the-Tech-Workforce-Analysis/blob/main/OL-25-LP-010/models/EDA.ipynb)](#)
 - **Classification Notebook:** [[Link to Classification Notebook](https://github.com/Amrinder2006/Mental-Wellness-Analysis-and-Support-Strategy-Design-for-the-Tech-Workforce-Analysis/blob/main/OL-25-LP-010/models/Classification.ipynb)](#)
-- **Regression Notebook:** [https://github.com/Amrinder2006/Mental-Wellness-Analysis-and-Support-Strategy-Design-for-the-Tech-Workforce-Analysis/blob/main/OL-25-LP-010/models/Regression.ipynb](#)
-- **Clustering Notebook:** [[Link to Clustering Notebook](https://github.com/Amrinder2006/Mental-Wellness-Analysis-and-Support-Strategy-Design-for-the-Tech-Workforce-Analysis/blo[b/main/OL-25-LP-010/models/Clustering.ipynb)](#)
+- **Regression Notebook:** [[Link to Regression Notebook](https://github.com/Amrinder2006/Mental-Wellness-Analysis-and-Support-Strategy-Design-for-the-Tech-Workforce-Analysis/blob/main/OL-25-LP-010/models/Regression.ipynb)](#)
+- **Clustering Notebook:** [[Link to Clustering Notebook](https://github.com/Amrinder2006/Mental-Wellness-Analysis-and-Support-Strategy-Design-for-the-Tech-Workforce-Analysis/blob/main/OL-25-LP-010/models/Clustering.ipynb)](#)
 - **Streamlit App:** [Hosted App Link](https://github.com/Amrinder2006/Mental-Wellness-Analysis-and-Support-Strategy-Design-for-the-Tech-Workforce-Analysis/blob/main/OL-25-LP-010/streamlit/app.py)](#)  
 - **Technical Report:** [Link to Medium Blog](#) 
 
