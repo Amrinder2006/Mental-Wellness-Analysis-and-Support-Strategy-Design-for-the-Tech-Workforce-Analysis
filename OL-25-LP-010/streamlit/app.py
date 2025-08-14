@@ -91,7 +91,7 @@ import seaborn as sns""")
     csv_path = os.path.join(current_dir, "survey.csv")
 
 # Read CSV
-    df = pd.read_csv(csv_path)
+    df = pd.read_csv("OL-25-LP-010/streamlit/survey.csv")
     st.dataframe(df)
     st.write(f"Rows={df.shape[0]},Columns={df.shape[1]}")
     st.divider()
