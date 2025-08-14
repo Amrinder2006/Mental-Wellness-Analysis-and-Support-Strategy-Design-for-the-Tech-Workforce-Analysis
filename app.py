@@ -18,6 +18,60 @@ from sklearn.cluster import KMeans,AgglomerativeClustering
 import umap.umap_ as umap
 import streamlit as st
 
+def Home():
+    st.title("Mental Wellness in the Tech Workforce: Analysis and Strategy")
+    st.markdown("---")
+
+    st.header("📖 About the Project")
+    st.markdown("""
+    This project analyzes a 2014 survey dataset on mental health in the tech industry. The primary goals are to understand the factors influencing an employee's decision to seek mental health treatment and to identify distinct employee archetypes through clustering.
+    
+    By leveraging machine learning, we aim to build predictive models and derive actionable insights that can help companies design better mental wellness support strategies.
+    """)
+    st.markdown("---")
+
+    st.header("📊 The Dataset")
+    st.markdown("""
+    The dataset contains responses from tech employees, covering a range of topics:
+    - **Demographics:** Age, Gender, Country, State.
+    - **Workplace Environment:** Company size, remote work status, tech company status.
+    - **Mental Health Attitudes & Benefits:** Availability of benefits, wellness programs, anonymity, and perceived consequences of discussing mental health.
+    - **Target Variable (Classification):** `treatment` - Whether the employee has sought treatment for a mental health condition.
+    """)
+    st.markdown("---")
+
+    st.header("🤔 Problems Faced")
+    st.markdown("""
+    Several challenges were addressed during the project:
+    - **Data Cleaning:** The dataset contained inconsistencies, missing values, and outliers (e.g., in the 'Age' column) that required careful cleaning and imputation.
+    - **Feature Engineering:** Many features were categorical. Transforming them into a numerical format suitable for machine learning models using techniques like One-Hot Encoding was crucial.
+    - **High Cardinality:** Features like 'Country' and 'state' had many unique values, which can make modeling difficult. These were handled strategically during preprocessing.
+    - **Complex Interactions:** Understanding the nuanced relationships between workplace culture, benefits, and an individual's willingness to seek help required detailed exploratory analysis.
+    """)
+    st.markdown("---")
+
+    st.header("🛠️ Work Done")
+    st.markdown("""
+    The project was structured into several key phases:
+
+    **1. Exploratory Data Analysis (EDA):**
+       - Performed **univariate, bivariate, and multivariate analysis** to understand data distributions and relationships between features.
+       - Visualized key insights using `seaborn` and `matplotlib`.
+
+    **2. Data Preprocessing & Pipelines:**
+       - Constructed a robust preprocessing pipeline using `sklearn.pipeline.Pipeline` and `ColumnTransformer`.
+       - Applied different scalers (**StandardScaler, RobustScaler**) and encoders (**OneHotEncoder**) to the appropriate columns.
+
+    **3. Predictive Modeling (Supervised Learning):**
+       - **Classification:** Trained `RandomForestClassifier` and `XGBClassifier` to predict if an employee would seek `treatment`.
+       - **Regression:** Trained `RandomForestRegressor` and `XGBRegressor` to predict the `Age` of a respondent.
+
+    **4. Customer Segmentation (Unsupervised Learning):**
+       - **Dimensionality Reduction:** Evaluated **PCA, t-SNE, KernelPCA, and UMAP**, with UMAP providing the best results for visualizing clusters.
+       - **Clustering:** Applied **K-Means** and **Agglomerative Clustering** on the dimensionally-reduced data to segment employees into distinct groups.
+       - **Cluster Profiling:** Analyzed the characteristics of each cluster to provide meaningful business insights.
+    """)
+
 def EDA():
 
     st.header("Required Imports")
@@ -294,6 +348,46 @@ df['Age']=np.log(df['Age'])
    plt.ylabel("Feature Names")
    plt.title("Top 10 important Features")
    st.pyplot(fig)
+   st.title("XGB Classifier Results")
+   st.header("Pipeline")
+   encode_cols=list(df.select_dtypes(include='object').columns)
+   pipeline=Pipeline([
+    ("preprocess",ColumnTransformer([
+        ('encode',OneHotEncoder(handle_unknown='ignore'),encode_cols),
+        ('Robust',RobustScaler(),['Age'])
+        ]),
+    ),
+    ('Train',XGBClassifier(n_estmimators=400,max_depth=5,subsample=0.62,max_features='log2'))
+    ])
+   pipeline.fit(x_train,y_train)
+   y_pred=pipeline.predict(x_test)
+   st.code(pipeline)
+   st.divider()
+   st.header("Evaluation")
+   st.text(f"Accuracy:{accuracy_score(y_test,y_pred)}")
+   fig1=plt.figure()
+   sns.heatmap(confusion_matrix(y_test,y_pred),annot=True,cmap='coolwarm',fmt='d')
+   plt.xlabel("Predicted Values")
+   plt.ylabel("Real Values")
+   plt.title("Confusion Matrix")
+   st.pyplot(fig1)
+   st.code(classification_report(y_test,y_pred))
+   st.divider()
+   st.subheader("Important Features")
+   importances=pipeline.named_steps['Train'].feature_importances_
+   sorted_importance=np.argsort(importances)[::-1]
+   sorted_importance=sorted_importance[0:10]
+
+   feature = pipeline.named_steps['preprocess'].get_feature_names_out()
+   fig,ax=plt.subplots()
+   sns.barplot(y=feature[sorted_importance],x=importances[sorted_importance])
+   plt.xlabel("Feature Coefficients")
+   plt.ylabel("Feature Names")
+   plt.title("Top 10 important Features")
+   st.pyplot(fig)
+   st.divider()
+   st.subheader("From the results,we can see that the performance of Random Forests Classifier is better.So we will be taking that model for prediction.")
+   st.divider()
    st.title("Prediction")
    feat=[]
    st.header("Features")
@@ -358,10 +452,10 @@ df['Age']=np.log(df['Age'])
       y_pred=pipeline.predict(pd.DataFrame(data=feat,columns=x.columns))
       if(y_pred==1):
          st.code(y_pred)
-         st.code("Yes the person has sought treatment for mental health before.")
+         st.code("The Person will likely seek Treatment")
       else:
          st.code(y_pred)
-         st.code("No the person has not sought treatment for mental health before.")
+         st.code("The Person will not likely seek Treatment")
 
 def Regression():
    st.title("Regression")
@@ -416,7 +510,7 @@ df['no_employees']=df['no_employees'].map({'1-5': 0,'6-25': 1,'26-100': 2,'100-5
    x=df.drop('Age',axis=1)
    y=df['Age']
    x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
-   st.code("XGB Regressor Results")
+   st.title("XGB Regressor Results")
 
    st.divider()
    st.header("Pipeline")
@@ -452,6 +546,43 @@ df['no_employees']=df['no_employees'].map({'1-5': 0,'6-25': 1,'26-100': 2,'100-5
    plt.ylabel("Feature Names")
    plt.title("Top 10 important Features")
    st.pyplot(fig)
+   st.divider()
+   st.title("Random Forest Regressor Results")
+   st.divider()
+   st.header("Pipeline")
+   encode_cols=list(df.select_dtypes(include='object').columns)
+   pipeline=Pipeline([
+    ("preprocess",ColumnTransformer([
+        ('encode',OneHotEncoder(handle_unknown='ignore'),encode_cols)
+        ]),
+    ),
+   ('Train',RandomForestRegressor(max_depth=6,max_features='sqrt',min_samples_leaf=1,min_samples_split=9,n_estimators=216,n_jobs=-1))
+   ])
+   st.code(pipeline)
+   st.divider()
+   pipeline.fit(x_train,y_train)
+   y_pred=pipeline.predict(x_test)
+   st.divider()
+   st.header("Evaluation")
+   st.text(f"R2 Score is:{r2_score(y_test,y_pred)}")
+   st.text(f"Mean Squared Error is:{mean_squared_error(y_test,y_pred)}")
+   st.text(f"Root Mean Squared Error is:{mean_squared_error(y_test,y_pred)**(1/2)}")
+   st.text(f"Mean Absolute Error is:{mean_absolute_error(y_test,y_pred)}")
+   st.divider()
+   st.subheader("Important Features")
+   importances=pipeline.named_steps['Train'].feature_importances_
+   sorted_importance=np.argsort(importances)[::-1]
+   sorted_importance=sorted_importance[0:10]
+
+   feature = pipeline.named_steps['preprocess'].get_feature_names_out()
+   fig,ax=plt.subplots()
+   sns.barplot(y=feature[sorted_importance],x=importances[sorted_importance])
+   plt.xlabel("Feature Coefficients")
+   plt.ylabel("Feature Names")
+   plt.title("Top 10 important Features")
+   st.pyplot(fig)
+   st.divider()
+   st.subheader("Since performance of XGB Regressor is better,we will be using that model for prediction")
    st.title("Prediction")
    feat=[]
    st.header("Features")
@@ -674,7 +805,7 @@ for i in columns:
 ])
 
     fig1=plt.figure(figsize=(20,10))
-    agglo=AgglomerativeClustering(n_clusters=n_clustersa,metric=metric,linkage=linkage)
+    agglo=AgglomerativeClustering(n_clusters=5,metric=metric,linkage=linkage)
     df_reduce1=pd.DataFrame(pipeline2.fit_transform(df),columns=['umap-1','umap-2'])
     labels=agglo.fit_predict(df_reduce)
     df_reduce1['Clusters']=labels
@@ -701,6 +832,7 @@ for i in columns:
     st.header('Cluster 4: "Under-Supported Employees"')
     st.text("This cluster is comprised of employees who are not self-employed and have a high likelihood of family history with mental health conditions. They are not being treated for mental health conditions but often experience work interference and mental health consequences because they work for companies that do not offer wellness programs or care options.")
 pg=st.navigation([
+    st.Page(Home,title='Home'),
     st.Page(EDA,title='EDA'),
     st.Page(Classification,title='Classification'),
     st.Page(Regression,title='Regression'),
